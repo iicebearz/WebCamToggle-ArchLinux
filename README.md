@@ -12,18 +12,6 @@ atau
 kegunaan V4L2Loopback ini untuk pengencekan webcam aktif atau tidak, atau pengencekan lainnya, cara pengencekanya dengan command
 ~/> v4l2-ctl --list-devices
 
-Contoh Outputnya:
-❯ v4l2-ctl --list-devices
-Iriun Webcam (platform:v4l2loopback-000):
-	/dev/video0
-
-ACER HD User Facing: ACER HD Us (usb-0000:00:14.0-6):
-	/dev/video1
-	/dev/video2
-	/dev/media0
-
-~
-
 ## Cara Settings
 nah dari sini aku akan memberikan Shell code dan bagaimana cara setupnya ke kalian agar bisa di jadikan Shortcut untuk mempermudah.
  1. toggle_webcam.sh
