@@ -1,6 +1,4 @@
-# WebCamToggle-ArchLinux
-
-# 🖥️ gnome-wayland-webcamkey
+# 🖥️WebCamToggle-ArchLinux
 Jadi disini aku membuat Shortcut Keybin untuk Archlinux GNOME Wayland
 untuk kalian bingung saat bermain omeTV atau omeggle pasti ke bingungan dengan kamera yang kalian pakai tidak terdeteksi walaupun sudah menggunakan VirtualCam pada OBS atau sejenisnya walaupun kalaian sudah setting penggunaan kamera pada Broswer kalian tapi masih yang terbaca atau otomatis digunakan adalah webcam bawaan (laptop).
 
