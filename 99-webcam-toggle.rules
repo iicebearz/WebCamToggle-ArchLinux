@@ -1,0 +1,10 @@
+polkit.addRule(function(action, subject) {
+    if (action.id == "org.freedesktop.policykit.exec" && 
+        subject.user == "bay") {
+        var command = action.args["command"];
+        if (command.includes("rmmod uvcvideo") || 
+            command.includes("modprobe uvcvideo")) {
+            return polkit.Result.YES;
+        }
+    }
+});
