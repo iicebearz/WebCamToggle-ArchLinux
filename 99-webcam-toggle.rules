@@ -1,6 +1,6 @@
 polkit.addRule(function(action, subject) {
     if (action.id == "org.freedesktop.policykit.exec" && 
-        subject.user == "bay") {
+        subject.user == "[username]") {
         var command = action.args["command"];
         if (command.includes("rmmod uvcvideo") || 
             command.includes("modprobe uvcvideo")) {
