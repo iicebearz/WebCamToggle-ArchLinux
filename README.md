@@ -1,26 +1,88 @@
-# 🖥WebCamToggle-ArchLinux
-Jadi disini aku membuat Shortcut Keybin untuk Archlinux GNOME Wayland
-untuk kalian bingung saat bermain omeTV atau omeggle pasti ke bingungan dengan kamera yang kalian pakai tidak terdeteksi walaupun sudah menggunakan VirtualCam pada OBS atau sejenisnya walaupun kalaian sudah setting penggunaan kamera pada Broswer kalian tapi masih yang terbaca atau otomatis digunakan adalah webcam bawaan (laptop).
+# 🖥️ Webcam Toggle for Arch Linux (GNOME Wayland)
 
-## Syarat
-Hal pertama yang perlu kalian install adalah V4L2Loopback, kalian bisa install di Paru/yay dengan command
-~/> paru -S v4l2loopback-dkms
-atau
-~/> yay -S v4l2loopback-dkms
+Toggle your webcam on/off with a single keyboard shortcut! Perfect for privacy protection during video calls, streaming, or when using platforms like OmeTV and Omegle.
 
-## Test Webcam yang tersedia
-kegunaan V4L2Loopback ini untuk pengencekan webcam aktif atau tidak, atau pengencekan lainnya, cara pengencekanya dengan command
-~/> v4l2-ctl --list-devices
+## ✨ Features
 
-## Cara Settings
-nah dari sini aku akan memberikan Shell code dan bagaimana cara setupnya ke kalian agar bisa di jadikan Shortcut untuk mempermudah.
- 1. toggle_webcam.sh
- pada Toggel webcam yang sudah aku berikan kalian bisa masukan ke directory ~/.local/bin/
- jangan lupa di berikan akses 777 atau Chmod +x pada Toggel Webcamnya
- 
- 2. 99-webcam-toggle.rules
- pada polkit ini kalian bisa masukan ke directory /etc/polkit-1/rules.d/
- setelah kalian masukan polkit wajib restar polkit atau login kembali user
- sudo systemctl restart polkita
+- 🔒 **Privacy Control**: Instantly disable/enable your webcam hardware
+- ⌨️ **Keyboard Shortcut**: Quick toggle via customizable keybind
+- 🎯 **Virtual Camera Friendly**: Works seamlessly with OBS VirtualCam and similar tools
+- 🛡️ **Secure**: Uses Polkit for safe privilege escalation
+- 💬 **Desktop Notifications**: Get instant feedback when toggling
 
-lalu kalian bisa setting keybind shortcut nya di GUI setting GNOME yang ada di Settings kalian, lalu kalian path commandnya menggunakan toggle_webcam.sh yang ada di usr/local/bin kalian.
+## 📋 Prerequisites
+
+### Required Packages
+
+Install the V4L2 loopback driver:
+
+```bash
+# Using paru
+paru -S v4l2loopback-dkms
+
+# OR using yay
+yay -S v4l2loopback-dkms
+```
+
+### Verify Available Webcams
+
+Check which webcams are currently detected:
+
+```bash
+v4l2-ctl --list-devices
+```
+
+## 🚀 Installation
+
+### Step 1: Install the Toggle Script
+
+Copy the script to your local bin directory:
+
+```bash
+cp toggle_webcam.sh ~/.local/bin/
+chmod +x ~/.local/bin/toggle_webcam.sh
+```
+
+### Step 2: Configure Polkit Rules
+
+Copy the Polkit rules file to allow password-less execution:
+
+```bash
+sudo cp 99-webcam-toggle.rules /etc/polkit-1/rules.d/
+```
+
+**Important**: Edit the username in `99-webcam-toggle.rules` :
+
+```javascript
+subject.user == "your_username"  // Replace '[username]' with your actual username
+```
+
+### Step 3: Restart Polkit Service
+
+Apply the new Polkit rules:
+
+```bash
+sudo systemctl restart polkit
+```
+
+*Alternatively, log out and log back in.*
+
+## ⚙️ Setup Keyboard Shortcut
+
+### GNOME Settings
+
+1. Open **Settings** → **Keyboard** → **View and Customize Shortcuts**
+2. Click **+** to add a custom shortcut
+3. Configure as follows:
+   - **Name**: `Toggle Webcam`
+   - **Command**: `~/.local/bin/toggle_webcam.sh`
+   - **Shortcut**: Press your desired key combination (e.g., `Ctrl+Alt+W`)
+
+## 🔧 How It Works
+
+The script toggles the `uvcvideo` kernel module:
+
+- **Disable**: Unloads the `uvcvideo` module (`rmmod uvcvideo`)
+- **Enable**: Loads the `uvcvideo` module (`modprobe uvcvideo`)
+
+Desktop notifications confirm each action.
